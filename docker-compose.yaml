@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  bot:
+    container_name: efb_master
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./profiles:/root/.ehforwarderbot/profiles
+    networks:
+        efb:
+            aliases:
+                - bot
+    depends_on:
+      - cqhttp
+
+  cqhttp:
+    container_name: efb_slave_qq
+    image: richardchien/cqhttp:latest
+    restart: unless-stopped
+    networks:
+      efb:
+        aliases:
+          - cqhttp
+    environment:
+      - COOLQ_PORT=5700
+      - VNC_PASSWD={{ your VNC password  }}
+      - CQHTTP_POST_URL=http://bot:8000
+      - COOLQ_ACCOUNT={{ your QQ number  }}
+      - CQHTTP_ACCESS_TOKEN=ac0f790e1fb74ebcaf45da77a6f9de47
+      - CQHTTP_POST_MESSAGE_FORMAT=array
+      - FORCE_ENV=true
+    ports:
+      - "9801:9000"
+
+networks:
+  efb:

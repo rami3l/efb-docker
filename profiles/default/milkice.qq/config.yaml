@@ -1,0 +1,10 @@
+Client: CoolQ
+CoolQ:
+    type: HTTP
+    access_token: ac0f790e1fb74ebcaf45da77a6f9de47
+    api_root: http://cqhttp:5700/
+    host: 0.0.0.0
+    port: 8000
+    is_pro: False
+    air_option:
+        upload_to_smms: true
